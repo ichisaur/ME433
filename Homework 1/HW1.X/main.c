@@ -30,7 +30,7 @@
 #pragma config UPLLEN = ON // USB clock on
 
 // DEVCFG3
-#pragma config USERID = 420 // some 16bit userid, doesn't matter what
+#pragma config USERID = 420 // some 16bit userid, doesn't matter what. Also Ayy Lmao
 #pragma config PMDL1WAY = OFF // allow multiple reconfigurations
 #pragma config IOL1WAY = OFF // allow multiple reconfigurations
 #pragma config FUSBIDIO = ON // USB pins controlled by USB module
@@ -54,33 +54,33 @@ int main() {
     DDPCONbits.JTAGEN = 0;
 
     // do your TRIS and LAT commands here
-    TRISAbits.TRISA4 = 0;
-    TRISBbits.TRISB4 = 1;
+    //Set TRIS register to declare I/O, 0 is output, 1 is input.
+    TRISAbits.TRISA4 = 0;   //Declare RA4 (LED) as output
+    TRISBbits.TRISB4 = 1;   //Declare RB4 (Push Button)
+    //Note: Pins should already default to input, so above line may be unneccesary 
 
     __builtin_enable_interrupts();
+
+    //Set PIC32 internal clock to 0
     _CP0_SET_COUNT(0);
 
     while(1) {
 	// use _CP0_SET_COUNT(0) and _CP0_GET_COUNT() to test the PIC timing
 	// remember the core timer runs at half the sysclk
         
+        //each cycle check for button press -> Low
+        //PORTBbits.RB4 reads RB4. While low, do nothing
         while (PORTBbits.RB4 == 0) {
             //do nothing
         }
-        if (_CP0_GET_COUNT() > 12000) {
+
+        //12000 is 0.5 ms. 
+        //48MHz Clock Speed -> 24MHz Timer tick speed
+        //we want 2kHz as the alternating rate, therefore 12,000 ticks/cycle
+        if (_CP0_GET_COUNT() >= 12000) {
+            //once it hits that many counts invert the output, and reset the clock
             LATAINV = 0b10000;
             _CP0_SET_COUNT(0);
         }
-        /*
-        _CP0_SET_COUNT(0);
-        LATAINV. = 0b10000;
-        while (_CP0_GET_COUNT() < 12000) {
-            //do nothing
-        }
-        LATA = 0b00000;
-        while (_CP0_GET_COUNT() < 24000) {
-            //do nothing
-        }
-        */
     }
 }
