@@ -54,11 +54,13 @@ int main() {
     DDPCONbits.JTAGEN = 0;
 
     // do your TRIS and LAT commands here
+    TRISA = 0b01111;
 
     __builtin_enable_interrupts();
 
     while(1) {
 	// use _CP0_SET_COUNT(0) and _CP0_GET_COUNT() to test the PIC timing
 	// remember the core timer runs at half the sysclk
+        PORTA = 0b10000;
     }
 }
