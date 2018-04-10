@@ -10,7 +10,7 @@
 #pragma config CP = OFF // no code protect
 
 // DEVCFG1
-#pragma config FNOSC = FRCPLL // use primary oscillator with pll
+#pragma config FNOSC = PRIPLL // use primary oscillator with pll
 #pragma config FSOSCEN = OFF // turn off secondary oscillator
 #pragma config IESO = OFF // no switching clocks
 #pragma config POSCMOD = HS // high speed crystal mode
