@@ -12702,7 +12702,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </sheet>
 </sheets>
 <errors>
-<approved hash="208,1,60.96,129.54,3.3V,sup,,,,"/>
 <approved hash="106,1,223.52,73.66,N$4,,,,,"/>
 <approved hash="113,1,226.737,78.5774,PROG,,,,,"/>
 <approved hash="113,1,226.737,50.6374,J1,,,,,"/>
