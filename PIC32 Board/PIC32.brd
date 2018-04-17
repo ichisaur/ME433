@@ -8,7 +8,7 @@
 </settings>
 <grid distance="25" unitdist="mil" unit="mil" style="lines" multiple="1" display="no" altdistance="5" altunitdist="mil" altunit="mil"/>
 <layers>
-<layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
+<layer number="1" name="Top" color="4" fill="1" visible="no" active="yes"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="no"/>
 <layer number="3" name="Route3" color="4" fill="3" visible="no" active="no"/>
 <layer number="4" name="Route4" color="1" fill="4" visible="no" active="no"/>
@@ -23,13 +23,13 @@
 <layer number="13" name="Route13" color="4" fill="5" visible="no" active="no"/>
 <layer number="14" name="Route14" color="1" fill="6" visible="no" active="no"/>
 <layer number="15" name="Route15" color="4" fill="6" visible="no" active="no"/>
-<layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
+<layer number="16" name="Bottom" color="1" fill="1" visible="no" active="yes"/>
 <layer number="17" name="Pads" color="2" fill="1" visible="yes" active="yes"/>
 <layer number="18" name="Vias" color="2" fill="1" visible="yes" active="yes"/>
 <layer number="19" name="Unrouted" color="6" fill="1" visible="no" active="yes"/>
 <layer number="20" name="Dimension" color="24" fill="1" visible="no" active="yes"/>
 <layer number="21" name="tPlace" color="7" fill="1" visible="no" active="yes"/>
-<layer number="22" name="bPlace" color="7" fill="1" visible="no" active="yes"/>
+<layer number="22" name="bPlace" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="23" name="tOrigins" color="15" fill="1" visible="no" active="yes"/>
 <layer number="24" name="bOrigins" color="15" fill="1" visible="no" active="yes"/>
 <layer number="25" name="tNames" color="7" fill="1" visible="no" active="yes"/>
@@ -19206,19 +19206,19 @@
 <rectangle x1="3.643628125" y1="22.175471875" x2="3.749803125" y2="22.185121875" layer="21" rot="R90"/>
 <rectangle x1="3.65328125" y1="22.175471875" x2="3.72084375" y2="22.185121875" layer="21" rot="R90"/>
 <text x="19.05" y="48.26" size="0.8128" layer="21" font="vector">This contains lead. </text>
-<circle x="10.287" y="4.445" radius="0.254" width="1.27" layer="22"/>
-<circle x="14.097" y="4.445" radius="0.254" width="1.27" layer="22"/>
-<circle x="17.907" y="4.445" radius="0.254" width="1.27" layer="22"/>
-<circle x="21.717" y="4.445" radius="0.254" width="1.27" layer="22"/>
-<circle x="25.527" y="4.445" radius="0.254" width="1.27" layer="22"/>
-<circle x="29.337" y="4.445" radius="0.254" width="1.27" layer="22"/>
-<circle x="33.147" y="4.445" radius="0.254" width="1.27" layer="22"/>
-<circle x="36.957" y="4.445" radius="0.254" width="1.27" layer="22"/>
-<circle x="40.767" y="4.445" radius="0.254" width="1.27" layer="22"/>
-<circle x="44.577" y="4.445" radius="0.254" width="1.27" layer="22"/>
-<wire x1="7.493" y1="1.905" x2="7.366" y2="7.493" width="0.3048" layer="22" curve="-262.574396"/>
-<wire x1="7.366" y1="7.493" x2="4.826" y2="4.826" width="0.3048" layer="22"/>
-<wire x1="4.826" y1="4.826" x2="7.493" y2="1.905" width="0.3048" layer="22"/>
+<circle x="36.068" y="5.08" radius="0.254" width="1.27" layer="22"/>
+<circle x="32.258" y="5.08" radius="0.254" width="1.27" layer="22"/>
+<circle x="28.448" y="5.08" radius="0.254" width="1.27" layer="22"/>
+<circle x="24.638" y="5.08" radius="0.254" width="1.27" layer="22"/>
+<circle x="20.828" y="5.08" radius="0.254" width="1.27" layer="22"/>
+<circle x="17.018" y="5.08" radius="0.254" width="1.27" layer="22"/>
+<circle x="13.208" y="5.08" radius="0.254" width="1.27" layer="22"/>
+<circle x="9.398" y="5.08" radius="0.254" width="1.27" layer="22"/>
+<circle x="5.588" y="5.08" radius="0.254" width="1.27" layer="22"/>
+<circle x="1.778" y="5.08" radius="0.254" width="1.27" layer="22"/>
+<wire x1="38.862" y1="2.54" x2="38.989" y2="8.128" width="0.3048" layer="22" curve="262.574396"/>
+<wire x1="38.989" y1="8.128" x2="41.529" y2="5.461" width="0.3048" layer="22"/>
+<wire x1="41.529" y1="5.461" x2="38.862" y2="2.54" width="0.3048" layer="22"/>
 </plain>
 <libraries>
 <library name="resistor" urn="urn:adsk.eagle:library:348">
