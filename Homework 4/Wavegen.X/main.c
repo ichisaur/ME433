@@ -102,7 +102,6 @@ int main() {
     _CP0_SET_COUNT(0);
     
     int i = 0;
-    float j = 0;
     
     while(1) {
         _CP0_SET_COUNT(0);       
@@ -113,8 +112,7 @@ int main() {
             setVoltage(1,(int)((float) (i%200) / 100 * 1023));
         }
         else {
-            setVoltage(1, (int) ((float)(200- i%200) / 100 * 1023));
-            
+            setVoltage(1, (int) ((float)(200- i%200) / 100 * 1023));         
         }
         i++;    
         while(_CP0_GET_COUNT() < 24000){
