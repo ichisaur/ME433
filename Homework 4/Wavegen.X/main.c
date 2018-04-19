@@ -94,7 +94,7 @@ int main() {
     
     
     initSPI1();
-    int upDown = 1; //rising or falling edge of triangle wave
+ 
     
     __builtin_enable_interrupts();
 
