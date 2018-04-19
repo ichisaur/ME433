@@ -3,8 +3,8 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>HW4</name>
-            <creation-uuid>e743ece9-7149-488a-9b44-1122b8f7674f</creation-uuid>
+            <name>Wavegen</name>
+            <creation-uuid>15d33f96-b0d8-4354-813e-1ab7fa64a6cd</creation-uuid>
             <make-project-type>0</make-project-type>
             <c-extensions>c</c-extensions>
             <cpp-extensions/>

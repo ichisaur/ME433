@@ -37,7 +37,7 @@
 #pragma config FVBUSONIO = ON // USB BUSON controlled by USB module
 
 
-#define CS LATBbits.LATB13
+#define CS LATBbits.LATB15
 
 void initSPI1() {
     RPB13Rbits.RPB13R = 0b0011; //B13 is SPI1

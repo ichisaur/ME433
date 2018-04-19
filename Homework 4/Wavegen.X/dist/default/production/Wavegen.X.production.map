@@ -958,14 +958,14 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x1132
+.debug_info     0x00000000     0x1136
  *(.debug_info .gnu.linkonce.wi.*)
- .debug_info    0x00000000      0xcca build/default/production/main.o
- .debug_info    0x00000cca       0xf3 d:/programs/xc32/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-bootstrap-exception-handler.o)
- .debug_info    0x00000dbd       0xcc d:/programs/xc32/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-on-reset.o)
- .debug_info    0x00000e89       0xd4 d:/programs/xc32/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-on-bootstrap.o)
- .debug_info    0x00000f5d       0xef d:/programs/xc32/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-general-exception-handler.o)
- .debug_info    0x0000104c       0xe6 d:/programs/xc32/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(defaultinterrupt.o)
+ .debug_info    0x00000000      0xcce build/default/production/main.o
+ .debug_info    0x00000cce       0xf3 d:/programs/xc32/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-bootstrap-exception-handler.o)
+ .debug_info    0x00000dc1       0xcc d:/programs/xc32/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-on-reset.o)
+ .debug_info    0x00000e8d       0xd4 d:/programs/xc32/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-on-bootstrap.o)
+ .debug_info    0x00000f61       0xef d:/programs/xc32/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-general-exception-handler.o)
+ .debug_info    0x00001050       0xe6 d:/programs/xc32/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(defaultinterrupt.o)
 
 .debug_abbrev   0x00000000      0x1e5
  *(.debug_abbrev)
@@ -976,14 +976,14 @@ END GROUP
  .debug_abbrev  0x00000195       0x28 d:/programs/xc32/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-general-exception-handler.o)
  .debug_abbrev  0x000001bd       0x28 d:/programs/xc32/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(defaultinterrupt.o)
 
-.debug_line     0x00000000      0x430
+.debug_line     0x00000000      0x434
  *(.debug_line)
- .debug_line    0x00000000      0x11c build/default/production/main.o
- .debug_line    0x0000011c       0xa5 d:/programs/xc32/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-bootstrap-exception-handler.o)
- .debug_line    0x000001c1       0x92 d:/programs/xc32/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-on-reset.o)
- .debug_line    0x00000253       0x96 d:/programs/xc32/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-on-bootstrap.o)
- .debug_line    0x000002e9       0xa3 d:/programs/xc32/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-general-exception-handler.o)
- .debug_line    0x0000038c       0xa4 d:/programs/xc32/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(defaultinterrupt.o)
+ .debug_line    0x00000000      0x120 build/default/production/main.o
+ .debug_line    0x00000120       0xa5 d:/programs/xc32/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-bootstrap-exception-handler.o)
+ .debug_line    0x000001c5       0x92 d:/programs/xc32/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-on-reset.o)
+ .debug_line    0x00000257       0x96 d:/programs/xc32/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-on-bootstrap.o)
+ .debug_line    0x000002ed       0xa3 d:/programs/xc32/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-general-exception-handler.o)
+ .debug_line    0x00000390       0xa4 d:/programs/xc32/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(defaultinterrupt.o)
 
 .debug_frame    0x00000000      0x140
  *(.debug_frame)
@@ -1062,7 +1062,7 @@ LOAD d:/programs/xc32/bin/bin/../../lib/gcc/pic32mx/4.8.3\libgcc.a
 LOAD d:/programs/xc32/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a
 END GROUP
 LOAD d:/programs/xc32/bin/bin/../../lib/gcc/pic32mx/4.8.3\libgcc.a
-OUTPUT(dist/default/production/HW1.X.production.elf elf32-tradlittlemips)
+OUTPUT(dist/default/production/Wavegen.X.production.elf elf32-tradlittlemips)
 LOAD stack
 LOAD data_init
 
