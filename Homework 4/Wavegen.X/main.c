@@ -102,11 +102,21 @@ int main() {
     _CP0_SET_COUNT(0);
     
     int i = 0;
+    float j = 0;
     
     while(1) {
         _CP0_SET_COUNT(0);       
         setVoltage(0, 512 + 512.0*sin(i*2.0*3.14/100));
-        i++;        
+            
+        
+        if (i%200 < 100) {
+            setVoltage(1,(int)((float) (i%200) / 100 * 1023));
+        }
+        else {
+            setVoltage(1, (int) ((float)(200- i%200) / 100 * 1023));
+            
+        }
+        i++;    
         while(_CP0_GET_COUNT() < 24000){
         ; //do nada
         }
