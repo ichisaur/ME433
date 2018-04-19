@@ -1,5 +1,6 @@
 #include<xc.h>           // processor SFR definitions
 #include<sys/attribs.h>  // __ISR macro
+#include <math.h>
 
 // DEVCFG0
 #pragma config DEBUG = OFF // no debugging
@@ -40,7 +41,7 @@
 #define CS LATBbits.LATB15
 
 void initSPI1() {
-    RPB13Rbits.RPB13R = 0b0011; //B13 is SPI1
+    RPB13Rbits.RPB13R = 0b0011; //B13 is SDO1
     TRISBbits.TRISB15 = 0; //B15 is CS, B14 is SCK1
     SPI1CON = 0;
     SPI1BUF;
@@ -93,21 +94,21 @@ int main() {
     
     
     initSPI1();
+    int upDown = 1; //rising or falling edge of triangle wave
     
     __builtin_enable_interrupts();
 
     //Set PIC32 internal clock to 0
     _CP0_SET_COUNT(0);
-
+    
+    int i = 0;
     
     while(1) {
-        
-        if(_CP0_GET_COUNT() > 12000){
-         
-            setVoltage(0,1023);
-            setVoltage(1,512);
-            _CP0_SET_COUNT(0);
-        
-    }
+        _CP0_SET_COUNT(0);       
+        setVoltage(0, 512 + 512.0*sin(i*2.0*3.14/100));
+        i++;        
+        while(_CP0_GET_COUNT() < 24000){
+        ; //do nada
+        }
     }
 }
