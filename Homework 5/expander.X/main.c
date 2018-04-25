@@ -1,6 +1,8 @@
 #include<xc.h>           // processor SFR definitions
 #include<sys/attribs.h>  // __ISR macro
 #include <math.h>
+#include "i2c_master_noint.h"
+
 
 // DEVCFG0
 #pragma config DEBUG = OFF // no debugging
@@ -38,43 +40,22 @@
 #pragma config FVBUSONIO = ON // USB BUSON controlled by USB module
 
 
-#define CS LATBbits.LATB15
 
-void initSPI1() {
-    RPB13Rbits.RPB13R = 0b0011; //B13 is SDO1
-    TRISBbits.TRISB15 = 0; //B15 is CS, B14 is SCK1
-    SPI1CON = 0;
-    SPI1BUF;
-    SPI1BRG = 1;
-    SPI1CONbits.CKE = 1;
-    SPI1CONbits.MSTEN = 1;
-    SPI1CONbits.ON = 1;
-    
-    CS = 1; //pull low to send data
-    
+
+
+
+void initExpander() {
+    ANSELBbits.ANSB2 = 0;
+    ANSELBbits.ANSB3 = 0;
+    i2c_master_setup();
 }
 
-char SPI1_IO(char c) {
-    SPI1BUF = c;
-    while(!SPI1STATbits.SPIRBF) {
-        ;//do nothing but wait.
-    }
-    return SPI1BUF; //return bit you get back
-}
-
-void setVoltage(char ch, int v) {
-    short temp = (ch << 15 | 0b1 << 14 | 0b1 <<13 | 0b1 << 12 | (v & 1023) << 2); //makes 0bx111(voltage)xx
-    CS = 0; //start write
-    SPI1_IO((temp & 0xFF00) >> 8); //write first  bits
-    SPI1_IO(temp & 0x00FF); //write second 8 bits
-    CS = 1; 
-}
-
-void initExamnder() {
-    
-}
-
-void setExpander() {
+void setExpander(char reg, char level) {
+    i2c_master_start();
+    i2c_master_send(0b0100000 << 1 | 0);
+    i2c_master_send(reg);
+    i2c_master_send(level);
+    i2c_master_stop();
     
 }
 
@@ -102,7 +83,7 @@ int main() {
     //Note: Pins should already default to input, so above line may be unneccesary 
     
     
-    initSPI1();
+
  
     
     __builtin_enable_interrupts();
@@ -110,19 +91,16 @@ int main() {
     //Set PIC32 internal clock to 0
     _CP0_SET_COUNT(0);
     
-    int i = 0;
     
     while(1) {
-        _CP0_SET_COUNT(0);       
+     
+
 
         
-        if (i%500 < 250) {
-            LATAINV = 0b10000;
-        }
-        
-        i++;    
-        while(_CP0_GET_COUNT() < 24000){
-        ; //do nada
+  
+        if (_CP0_GET_COUNT() > 2400000){
+        LATAINV = 0b10000;
+        _CP0_SET_COUNT(0);
         }
     }
 }
