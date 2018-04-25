@@ -59,6 +59,20 @@ void setExpander(char reg, char level) {
     
 }
 
+unsigned char getExpander() {
+    i2c_master_start();
+    i2c_master_send(0b0100000 << 1 | 0);
+    i2c_master_send(9);
+    i2c_master_restart();
+    i2c_master_send(0b0100000 << 1 | 1);
+    unsigned char rec = i2c_master_recv();
+    i2c_master_ack(1);
+    i2c_master_stop();
+    
+    
+    return rec;
+}
+
 
 int main() {
 
@@ -82,9 +96,19 @@ int main() {
     TRISBbits.TRISB4 = 1;   //Declare RB4 (Push Button)
     //Note: Pins should already default to input, so above line may be unneccesary 
     
+    initExpander();
     
-
- 
+    i2c_master_start();
+    i2c_master_send(0b0100000 << 1 | 0);
+    i2c_master_send(0x00);
+    i2c_master_send(0xF0);
+    i2c_master_stop();
+    
+    i2c_master_start();
+    i2c_master_send(0b0100000 << 1 | 0);
+    i2c_master_send(0x0A);
+    i2c_master_send(0x0F);
+    i2c_master_stop();
     
     __builtin_enable_interrupts();
 
@@ -94,13 +118,19 @@ int main() {
     
     while(1) {
      
+        if (getExpander() >> 7 == 1) { 
+            setExpander(0xA, 1);
+        }
+        else {
+            setExpander(0xA, 0);
+        }
 
 
         
   
         if (_CP0_GET_COUNT() > 2400000){
-        LATAINV = 0b10000;
-        _CP0_SET_COUNT(0);
+            LATAINV = 0b10000;
+            _CP0_SET_COUNT(0);
         }
     }
 }
