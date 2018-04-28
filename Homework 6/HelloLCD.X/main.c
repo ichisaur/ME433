@@ -66,6 +66,16 @@ void drawString(short x, short y, char* message, short color_1, short color_2) {
     }
 }
 
+void drawBox(short x, short y, short length, short height, short color) {
+    int i, j;
+    for (i = 0; i < length; i++) {
+        for (j = 0; j < height; j++) {
+            LCD_drawPixel(x+i, y+j, color);               
+            
+        }
+    }
+}
+
 
 
 int main() {
@@ -94,7 +104,9 @@ int main() {
     LCD_clearScreen(0x0000);
     char message[26];
     sprintf(message, "Hello World");
-    drawString(0, 0, message, 0xFFFF, 0x0000);
+    drawString(30, 30, message, 0xFFFF, 0x0000);
+    
+
     __builtin_enable_interrupts();
 
     //Set PIC32 internal clock to 0
