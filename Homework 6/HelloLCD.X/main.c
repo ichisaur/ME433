@@ -116,7 +116,7 @@ int main() {
     
     int count = 0;
     while(1) {
-        while (count < 86) {
+        if (count < 86) {
             drawBox(21 + count, 101, 1, 8, RED);
         }
         
