@@ -115,16 +115,25 @@ int main() {
     _CP0_SET_COUNT(0);
     
     int count = 0;
+    u_int last_tick = 0;
+    u_int cur_tick = 0;
+    
     while(1) {
         if (count < 86) {
             drawBox(21 + count, 101, 1, 8, RED);
         }
         
-  
+        cur_tick = _CP0_GET_COUNT();
+
+        sprintf(message, "fps:%g", 24000000/((float)cur_tick - last_tick));
+        drawString(1,1, message, WHITE, BLACK);
+        last_tick = cur_tick;
+        
         if (_CP0_GET_COUNT() > 2400000){
+            _CP0_SET_COUNT(0);
             LATAINV = 0b10000;
             count++;
-            _CP0_SET_COUNT(0);
+            last_tick = 0;
         }
     }
 }
