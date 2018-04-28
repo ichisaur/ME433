@@ -104,23 +104,26 @@ int main() {
     LCD_clearScreen(0x0000);
     char message[26];
     sprintf(message, "Hello World");
-    drawString(30, 30, message, 0xFFFF, 0x0000);
+    drawString(35, 65, message, 0xFFFF, 0x0000);
     
-
+    drawBox(20, 100, 88, 10, WHITE);
+    drawBox(21, 101, 86, 8, BLACK);
+    
     __builtin_enable_interrupts();
 
     //Set PIC32 internal clock to 0
     _CP0_SET_COUNT(0);
     
-    
+    int count = 0;
     while(1) {
-     
-    
-
+        while (count < 86) {
+            drawBox(21 + count, 101, 1, 8, RED);
+        }
         
   
         if (_CP0_GET_COUNT() > 2400000){
             LATAINV = 0b10000;
+            count++;
             _CP0_SET_COUNT(0);
         }
     }
