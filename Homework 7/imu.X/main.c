@@ -116,13 +116,14 @@ void imuRead(unsigned char add, unsigned char reg, unsigned char* data, int leng
     i2c_master_restart();
     i2c_master_send(0b1101011 << 1 | 1);
     int i = 0;
-    while (i < (length - 1)) {
-        data[i] = i2c_master_recv();
-        i2c_master_ack(0);
-        i++;
-    }
-    data[i] = i2c_master_recv();
-    i2c_master_ack(1);
+    for(i = 0; i < length; i++){
+        data[i] = i2c_master_recv(); // save the value returned
+        if (i < (length - 1)){
+            i2c_master_ack(0);
+        }else{
+            i2c_master_ack(1);
+        }
+    } 
     i2c_master_stop();
 }
 
@@ -164,24 +165,41 @@ int main() {
     _CP0_SET_COUNT(0);
     
     char message[30];
+    unsigned char rawData[14];
+    short data[7];
+    
     sprintf(message, "Initialized");
     drawString(1,1,message,BLACK,WHITE);
     while(1) {
 
         
-        if (getExpander() == 0x69) { 
-            sprintf(message, "Gucci");
-            drawString(1,10,message,BLACK,WHITE);
+        if (getExpander() != 0x69) { 
+            sprintf(message, "uh-oh");
+            drawString(1,10,message,RED, BLACK);
+            while(1) {
+                ;
+            }
             
         }
         
-
+       
 
         
   
         if (_CP0_GET_COUNT() > 1200000){
             LATAINV = 0b10000;
+            
             _CP0_SET_COUNT(0);
+            
+            imuRead(0b1101011, 0x20, rawData, 14);
+        
+            int i = 0;
+            for (i = 0; i <= 6; i++) {
+                data[i] = (rawData[i*2 + 1] << 8) | data[i*2];
+            }
+        
+            sprintf(message, "x %d y %d", data[4], data[5]);
+            drawString(1, 20, message, WHITE, BLACK);
         }
     }
 }
