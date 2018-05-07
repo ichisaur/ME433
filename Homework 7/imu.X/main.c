@@ -167,8 +167,11 @@ int main() {
     unsigned char rawData[14];
     short data[7];
     
-    sprintf(message, "Initialized");
-    drawString(1,1,message,BLACK,WHITE);
+    drawBox(14, 87, 100, 6, WHITE);
+    drawBox(62, 40, 6, 100, WHITE);
+    drawBox(62, 87, 6, 6, RED);
+    int horiz;
+    int vert;
     while(1) {
 
         
@@ -194,11 +197,45 @@ int main() {
         
             int i = 0;
             for (i = 0; i <= 6; i++) {
-                data[i] = (rawData[i*2 + 1] << 8) | data[i*2];
+                data[i] = (rawData[i*2 + 1] << 8) | rawData[i*2];
             }
         
-            sprintf(message, "x %d y %d", data[4], data[5]);
-            drawString(1, 20, message, WHITE, BLACK);
+            sprintf(message, "x %d z %d", data[4], data[6]);
+            drawString(1, 1, message, WHITE, BLACK);
+            
+            horiz = -1*data[4]*47.0/16000;
+            vert = data[6]*47.0/16000;
+            if(horiz > 3) {
+                drawBox(14, 87, 47, 6, WHITE);
+                drawBox(67, 87, horiz-3,6, RED);
+                drawBox(67+horiz-3, 87, 50-horiz, 6, WHITE);
+            }
+            else if (horiz < -3) {
+                drawBox(14, 87, 50+horiz, 6, WHITE);
+                drawBox(61+horiz+3, 87, -1* horiz, 6, RED);
+                drawBox(68, 87, 47, 6, WHITE);
+            }
+            else {
+                drawBox(14, 87, 48, 6, WHITE);
+                drawBox(68, 87, 46, 6, WHITE);
+            }
+ 
+            if(vert > 3) {
+                drawBox(62, 40, 6, 47, WHITE);
+                drawBox(62, 93, 6, vert-3, RED);
+                drawBox(62, 93+vert-3, 6, 50-vert, WHITE);
+            }
+            else if (vert < -3) {
+                drawBox(62, 40, 6, 50+vert, WHITE);
+                drawBox(62, 87+vert+3, 6, -1*vert, RED);
+                drawBox(62, 93, 6, 47, WHITE);
+            }
+            else {
+                drawBox(62, 40, 6, 47, WHITE);
+                drawBox(62, 93, 6, 47, WHITE);
+            }
+            
+            
         }
     }
 }
