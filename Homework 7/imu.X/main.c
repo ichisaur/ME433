@@ -109,6 +109,23 @@ unsigned char getExpander() {
     return rec;
 }
 
+void imuRead(unsigned char add, unsigned char reg, unsigned char* data, int length) {
+    i2c_master_start();
+    i2c_master_send(0b1101011 << 1 | 0);
+    i2c_master_send(reg);
+    i2c_master_restart();
+    i2c_master_send(0b1101011 << 1 | 1);
+    int i = 0;
+    while (i < (length - 1)) {
+        data[i] = i2c_master_recv();
+        i2c_master_ack(0);
+        i++;
+    }
+    data[i] = i2c_master_recv();
+    i2c_master_ack(1);
+    i2c_master_stop();
+}
+
 
 int main() {
 
@@ -162,7 +179,7 @@ int main() {
 
         
   
-        if (_CP0_GET_COUNT() > 2400000){
+        if (_CP0_GET_COUNT() > 1200000){
             LATAINV = 0b10000;
             _CP0_SET_COUNT(0);
         }
