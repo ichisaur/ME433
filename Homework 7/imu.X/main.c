@@ -3,6 +3,7 @@
 #include <math.h>
 #include "i2c_master_noint.h"
 #include "ST7735.h"
+#include <stdio.h>
 
 
 // DEVCFG0
@@ -87,7 +88,7 @@ void initExpander() {
 
 void setExpander(char reg, char level) {
     i2c_master_start();
-    i2c_master_send(0b0100000 << 1 | 0);
+    i2c_master_send(0b1101011 << 1 | 0);
     i2c_master_send(reg);
     i2c_master_send(level);
     i2c_master_stop();
@@ -96,10 +97,10 @@ void setExpander(char reg, char level) {
 
 unsigned char getExpander() {
     i2c_master_start();
-    i2c_master_send(0b0100000 << 1 | 0);
-    i2c_master_send(9);
+    i2c_master_send(0b1101011 << 1 | 0);
+    i2c_master_send(0x0F);
     i2c_master_restart();
-    i2c_master_send(0b0100000 << 1 | 1);
+    i2c_master_send(0b1101011 << 1 | 1);
     unsigned char rec = i2c_master_recv();
     i2c_master_ack(1);
     i2c_master_stop();
@@ -133,32 +134,30 @@ int main() {
     
     initExpander();
     
-    i2c_master_start();
-    i2c_master_send(0b0100000 << 1 | 0);
-    i2c_master_send(0x00);
-    i2c_master_send(0xF0);
-    i2c_master_stop();
+    setExpander(0x10,0b10000010); //set up accelarometer
+    setExpander(0x11,0b10001000);  //set all outputs as high
+    setExpander(0x12,0b00000100);
     
-    i2c_master_start();
-    i2c_master_send(0b0100000 << 1 | 0);
-    i2c_master_send(0x0A);
-    i2c_master_send(0x0F);
-    i2c_master_stop();
+    LCD_init();
+    LCD_clearScreen(0x0000);
     
     __builtin_enable_interrupts();
 
     //Set PIC32 internal clock to 0
     _CP0_SET_COUNT(0);
     
-    
+    char message[30];
+    sprintf(message, "Initialized");
+    drawString(1,1,message,BLACK,WHITE);
     while(1) {
-     
-        if (getExpander() >> 7 == 1) { 
-            setExpander(0xA, 1);
+
+        
+        if (getExpander() == 0x69) { 
+            sprintf(message, "Gucci");
+            drawString(1,10,message,BLACK,WHITE);
+            
         }
-        else {
-            setExpander(0xA, 0);
-        }
+        
 
 
         
