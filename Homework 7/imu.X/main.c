@@ -116,14 +116,13 @@ void imuRead(unsigned char add, unsigned char reg, unsigned char* data, int leng
     i2c_master_restart();
     i2c_master_send(0b1101011 << 1 | 1);
     int i = 0;
-    for(i = 0; i < length; i++){
-        data[i] = i2c_master_recv(); // save the value returned
-        if (i < (length - 1)){
-            i2c_master_ack(0);
-        }else{
-            i2c_master_ack(1);
-        }
-    } 
+    while (i < (length - 1)) {
+        data[i] = i2c_master_recv();
+        i2c_master_ack(0);
+        i++;
+    }
+    data[i] = i2c_master_recv();
+    i2c_master_ack(1);
     i2c_master_stop();
 }
 
@@ -191,7 +190,7 @@ int main() {
             
             _CP0_SET_COUNT(0);
             
-            imuRead(0b1101011, 0x20, rawData, 14);
+             imuRead(0b1101011, 0x20, rawData, 14);
         
             int i = 0;
             for (i = 0; i <= 6; i++) {
