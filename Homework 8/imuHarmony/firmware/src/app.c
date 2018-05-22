@@ -297,7 +297,7 @@ void APP_Tasks ( void )
        
 
         
-  
+            
         if (_CP0_GET_COUNT() > 1200000){
             LATAINV = 0b10000;
             

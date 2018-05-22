@@ -49,6 +49,9 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "app.h"
 #include <stdio.h>
 #include <xc.h>
+#include <math.h>
+#include "i2c_master_noint.h"
+#include "ST7735.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -60,6 +63,11 @@ uint8_t APP_MAKE_BUFFER_DMA_READY dataOut[APP_READ_BUFFER_SIZE];
 uint8_t APP_MAKE_BUFFER_DMA_READY readBuffer[APP_READ_BUFFER_SIZE];
 int len, i = 0;
 int startTime = 0; // to remember the loop time
+unsigned char rawData[14];
+short data[7];
+char message[30];
+bool writeToScreen;
+int counter = 0;
 
 // *****************************************************************************
 /* Application Data
@@ -82,6 +90,52 @@ APP_DATA appData;
 
 /* TODO:  Add any necessary callback functions.
  */
+
+void initExpander() {
+    ANSELBbits.ANSB2 = 0;
+    ANSELBbits.ANSB3 = 0;
+    i2c_master_setup();
+}
+
+void setExpander(char reg, char level) {
+    i2c_master_start();
+    i2c_master_send(0b1101011 << 1 | 0);
+    i2c_master_send(reg);
+    i2c_master_send(level);
+    i2c_master_stop();
+    
+}
+
+unsigned char getExpander() {
+    i2c_master_start();
+    i2c_master_send(0b1101011 << 1 | 0);
+    i2c_master_send(0x0F);
+    i2c_master_restart();
+    i2c_master_send(0b1101011 << 1 | 1);
+    unsigned char rec = i2c_master_recv();
+    i2c_master_ack(1);
+    i2c_master_stop();
+    
+    
+    return rec;
+}
+
+void imuRead(unsigned char add, unsigned char reg, unsigned char* data, int length) {
+    i2c_master_start();
+    i2c_master_send(0b1101011 << 1 | 0);
+    i2c_master_send(reg);
+    i2c_master_restart();
+    i2c_master_send(0b1101011 << 1 | 1);
+    int i = 0;
+    while (i < (length - 1)) {
+        data[i] = i2c_master_recv();
+        i2c_master_ack(0);
+        i++;
+    }
+    data[i] = i2c_master_recv();
+    i2c_master_ack(1);
+    i2c_master_stop();
+}
 
 /*******************************************************
  * USB CDC Device Events - Application Event Handler
@@ -329,6 +383,34 @@ void APP_Initialize(void) {
     appData.readBuffer = &readBuffer[0];
 
     /* PUT YOUR LCD, IMU, AND PIN INITIALIZATIONS HERE */
+__builtin_disable_interrupts();
+
+    // set the CP0 CONFIG register to indicate that kseg0 is cacheable (0x3)
+    __builtin_mtc0(_CP0_CONFIG, _CP0_CONFIG_SELECT, 0xa4210583);
+
+    // 0 data RAM access wait states
+    BMXCONbits.BMXWSDRM = 0x0;
+
+    // enable multi vector interrupts
+    INTCONbits.MVEC = 0x1;
+
+    // disable JTAG to get pins back
+    DDPCONbits.JTAGEN = 0;
+
+    // do your TRIS and LAT commands here
+    //Set TRIS register to declare I/O, 0 is output, 1 is input.
+    TRISAbits.TRISA4 = 0;   //Declare RA4 (LED) as output
+    TRISBbits.TRISB4 = 1;   //Declare RB4 (Push Button)
+    //Note: Pins should already default to input, so above line may be unneccesary 
+    
+    initExpander();
+    
+    setExpander(0x10,0b10000010); //set up accelarometer
+    setExpander(0x11,0b10001000);  //set all outputs as high
+    setExpander(0x12,0b00000100);
+
+    
+    __builtin_enable_interrupts();
 
     startTime = _CP0_GET_COUNT();
 }
@@ -394,7 +476,12 @@ void APP_Tasks(void) {
                         /* YOU COULD PUT AN IF STATEMENT HERE TO DETERMINE WHICH LETTER
                         WAS RECEIVED (USUALLY IT IS THE NULL CHARACTER BECAUSE NOTHING WAS
                       TYPED) */
-
+                
+                    if(readBuffer[0] == 'r'){
+                        writeToScreen = 1;
+                        counter = 0;
+                    }
+                
                 if (appData.readTransferHandle == USB_DEVICE_CDC_TRANSFER_HANDLE_INVALID) {
                     appData.state = APP_STATE_ERROR;
                     break;
@@ -437,22 +524,45 @@ void APP_Tasks(void) {
             /* PUT THE TEXT YOU WANT TO SEND TO THE COMPUTER IN dataOut
             AND REMEMBER THE NUMBER OF CHARACTERS IN len */
             /* THIS IS WHERE YOU CAN READ YOUR IMU, PRINT TO THE LCD, ETC */
-            len = sprintf(dataOut, "%d\r\n", i);
-            i++; // increment the index so we see a change in the text
-            /* IF A LETTER WAS RECEIVED, ECHO IT BACK SO THE USER CAN SEE IT */
-            if (appData.isReadComplete) {
-                USB_DEVICE_CDC_Write(USB_DEVICE_CDC_INDEX_0,
-                        &appData.writeTransferHandle,
-                        appData.readBuffer, 1,
-                        USB_DEVICE_CDC_TRANSFER_FLAGS_DATA_COMPLETE);
+            
+            
+            if (getExpander() != 0x69) { 
+                sprintf(message, "uh-oh");
+                while(1) {
+                    ;
+                }          
             }
-            /* ELSE SEND THE MESSAGE YOU WANTED TO SEND */
-            else {
-                USB_DEVICE_CDC_Write(USB_DEVICE_CDC_INDEX_0,
+             
+             
+            
+            
+            if (_CP0_GET_COUNT() > 240000){
+                LATAINV = 0b10000;
+
+                _CP0_SET_COUNT(0);
+
+                imuRead(0b1101011, 0x20, rawData, 14);
+
+                int i = 0;
+                    for (i = 0; i <= 6; i++) {
+                    data[i] = (rawData[i*2 + 1] << 8) | rawData[i*2];
+                }                           
+            }
+            
+            if((writeToScreen == 1) && counter < 100){
+                len = sprintf(dataOut, "%d %d %d %d %d %d %d \r\n",counter, data[4],data[5],data[6],data[1],data[2],data[3]);
+            }
+            else{
+                len = 1;
+                dataOut[0] = 0;    
+            }
+            counter++;
+            
+            USB_DEVICE_CDC_Write(USB_DEVICE_CDC_INDEX_0,
                         &appData.writeTransferHandle, dataOut, len,
                         USB_DEVICE_CDC_TRANSFER_FLAGS_DATA_COMPLETE);
-                startTime = _CP0_GET_COUNT(); // reset the timer for acurate delays
-            }
+            startTime = _CP0_GET_COUNT();
+            
             break;
 
         case APP_STATE_WAIT_FOR_WRITE_COMPLETE:
