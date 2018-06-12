@@ -5,7 +5,7 @@
     <SystemStartScript dnOrder="1"/>
   </DisplayManager>
   <General>
-    <HarmonyPath dnOrder="0" path="../../../../../../../Programs/Harmony"/>
+    <HarmonyPath dnOrder="0" path="../../../microchip/harmony/v2_05_01"/>
     <Processor dnOrder="1" name="PIC32MX250F128B"/>
     <Board dnOrder="2" name=" "/>
     <ForceOptimization dnOrder="3" flag="true"/>
@@ -207,7 +207,7 @@
       <Template dnOrder="1">
         <Name dnOrder="0">system_init.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/default</Path>
-        <Checksum dnOrder="2">209AB8F7C81C8068907F110410D4BE9C</Checksum>
+        <Checksum dnOrder="2">581B50BC88C0702B2EFEA44A5B17B0B5</Checksum>
       </Template>
       <Template dnOrder="2">
         <Name dnOrder="0">main.c</Name>
@@ -274,15 +274,15 @@
     </Templates>
     <CompilerItems dnOrder="2">
       <C32 dnOrder="0">
-        <Include dnOrder="0" value="D:\ichi\Library\Documents\code\ME433\Final Project PIC\PIC Controller\firmware\src"/>
-        <Include dnOrder="1" value="D:\ichi\Library\Documents\code\ME433\Final Project PIC\PIC Controller\firmware\src\system_config\default"/>
-        <Include dnOrder="2" value="D:\ichi\Library\Documents\code\ME433\Final Project PIC\PIC Controller\firmware\src\default"/>
-        <Include dnOrder="3" value="D:\Programs\Harmony\framework"/>
-        <Include dnOrder="4" value="D:\ichi\Library\Documents\code\ME433\Final Project PIC\PIC Controller\firmware\src\system_config\default\framework"/>
+        <Include dnOrder="0" value="/Users/ethantrokie/gitFolder/ME433EthanTrokie/HW14/firmware/src"/>
+        <Include dnOrder="1" value="/Users/ethantrokie/gitFolder/ME433EthanTrokie/HW14/firmware/src/system_config/default"/>
+        <Include dnOrder="2" value="/Users/ethantrokie/gitFolder/ME433EthanTrokie/HW14/firmware/src/default"/>
+        <Include dnOrder="3" value="/Users/ethantrokie/microchip/harmony/v2_05_01/framework"/>
+        <Include dnOrder="4" value="/Users/ethantrokie/gitFolder/ME433EthanTrokie/HW14/firmware/src/system_config/default/framework"/>
       </C32>
     </CompilerItems>
     <Libraries dnOrder="3">
-      <Library dnOrder="0" value="../../../../../../../../../Programs/Harmony/bin/framework/peripheral/PIC32MX250F128B_peripherals.a"/>
+      <Library dnOrder="0" value="../../../../../microchip/harmony/v2_05_01/bin/framework/peripheral/PIC32MX250F128B_peripherals.a"/>
     </Libraries>
   </Manifest>
 </Configuration>

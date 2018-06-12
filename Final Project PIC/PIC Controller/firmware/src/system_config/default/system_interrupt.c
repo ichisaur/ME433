@@ -1,20 +1,26 @@
 /*******************************************************************************
  System Interrupts File
+
   File Name:
     system_interrupt.c
+
   Summary:
     Raw ISR definitions.
+
   Description:
     This file contains a definitions of the raw ISRs required to support the
     interrupt sub-system.
+
   Summary:
     This file contains source code for the interrupt vector functions in the
     system.
+
   Description:
     This file contains source code for the interrupt vector functions in the
     system.  It implements the system and part specific vector "stub" functions
     from which the individual "Tasks" functions are called for any modules
     executing interrupt-driven in the MPLAB Harmony system.
+
   Remarks:
     This file requires access to the systemObjects global data structure that
     contains the object handles to all MPLAB Harmony module objects executing
@@ -25,12 +31,15 @@
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
 Copyright (c) 2011-2014 released Microchip Technology Inc.  All rights reserved.
+
 Microchip licenses to you the right to use, modify, copy and distribute
 Software only when embedded on a Microchip microcontroller or digital signal
 controller that is integrated into your product or third party product
 (pursuant to the sublicense terms in the accompanying license agreement).
+
 You should refer to the license agreement accompanying this Software for
 additional information regarding your rights and obligations.
+
 SOFTWARE AND DOCUMENTATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND,
 EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF
 MERCHANTABILITY, TITLE, NON-INFRINGEMENT AND FITNESS FOR A PARTICULAR PURPOSE.

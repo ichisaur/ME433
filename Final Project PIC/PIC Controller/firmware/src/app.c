@@ -1,11 +1,15 @@
 /*******************************************************************************
   MPLAB Harmony Application Source File
+
   Company:
     Microchip Technology Inc.
+
   File Name:
     app.c
+
   Summary:
     This file contains the source code for the MPLAB Harmony application.
+
   Description:
     This file contains the source code for the MPLAB Harmony application.  It
     implements the logic of the application's state machine and it may call
@@ -20,12 +24,15 @@
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
 Copyright (c) 2013-2014 released Microchip Technology Inc.  All rights reserved.
+
 Microchip licenses to you the right to use, modify, copy and distribute
 Software only when embedded on a Microchip microcontroller or digital signal
 controller that is integrated into your product or third party product
 (pursuant to the sublicense terms in the accompanying license agreement).
+
 You should refer to the license agreement accompanying this Software for
 additional information regarding your rights and obligations.
+
 SOFTWARE AND DOCUMENTATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND,
 EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF
 MERCHANTABILITY, TITLE, NON-INFRINGEMENT AND FITNESS FOR A PARTICULAR PURPOSE.
@@ -70,12 +77,16 @@ int kp2 = .81;
 
 // *****************************************************************************
 /* Application Data
+
   Summary:
     Holds application data
+
   Description:
     This structure holds the application's data.
+
   Remarks:
     This structure should be initialized by the APP_Initialize function.
+
     Application strings and buffers are be defined outside this structure.
  */
 
@@ -296,6 +307,7 @@ bool APP_StateReset(void) {
 /*******************************************************************************
   Function:
     void APP_Initialize ( void )
+
   Remarks:
     See prototype in app.h.
  */
@@ -383,6 +395,7 @@ void APP_Initialize(void) {
 /******************************************************************************
   Function:
     void APP_Tasks ( void )
+
   Remarks:
     See prototype in app.h.
  */
