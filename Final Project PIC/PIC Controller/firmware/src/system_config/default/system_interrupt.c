@@ -75,7 +75,7 @@ void __ISR(_USB_1_VECTOR, ipl4AUTO) _IntHandlerUSBInstance0(void)
     DRV_USBFS_Tasks_ISR(sysObj.drvUSBObject);
 }
 void __ISR(_TIMER_4_VECTOR, IPL4SOFT) Timer4ISR(void) {
-    speed = 4.5;
+    speed = 6;
     int kp = 30;
     float ki = .45;
     float e;
@@ -87,7 +87,7 @@ void __ISR(_TIMER_4_VECTOR, IPL4SOFT) Timer4ISR(void) {
 //        LATAbits.LATA4 = 1;
 //    }
     //right wheel
-    e = speed - TMR5;
+    e = speed*(rxVal-320)/320 - TMR5;
     eint1 = eint1 + e;
     if(eint1 > 1800){
         eint1 = 1800;
@@ -100,13 +100,13 @@ void __ISR(_TIMER_4_VECTOR, IPL4SOFT) Timer4ISR(void) {
     if(u1 > 2399){
         u1 = 2399;
     }
-    if(u1 < 0){
-        u1 = 0;
+    if(u1 < -2399){
+        u1 = -2399;
     }
 //    OC1RS = u1;
 
     //left wheel
-    e2 = speed - TMR3;
+    e2 = -1 * speed*(rxVal-320)/320 - TMR3;
     eint2 = eint2 + e2;
     if(eint2 > 1800){
         eint2 = 1800;
