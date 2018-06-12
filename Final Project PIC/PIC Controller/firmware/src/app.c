@@ -494,14 +494,15 @@ void APP_Tasks(void) {
                             right = 0;
                         }
                     }
-                 /*
-                    OC1RS = right;
-                    OC4RS = left;
-                 */
                  
+                    OC1RS = left;
+                    OC4RS = right;
+                 
+                 
+                 /*
                  OC1RS = 2399; //Left
                  OC4RS = 1000; //Right
-                 
+                 */
                     
                 
                 

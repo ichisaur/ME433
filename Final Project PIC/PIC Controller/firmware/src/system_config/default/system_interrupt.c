@@ -123,11 +123,11 @@ void __ISR(_TIMER_4_VECTOR, IPL4SOFT) Timer4ISR(void) {
     }
 //        OC1RS = u1;
 //        OC4RS = u2;
-    
-    IFS0bits.T4IF = 0; // clear interrupt flag, last line
     TMR3 = 0; // left wheel
     TMR4 = 0; // dt
     TMR5 = 0; // right wheel
+    IFS0bits.T4IF = 0; // clear interrupt flag, last line
+
   
 }
 /*******************************************************************************
