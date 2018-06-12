@@ -477,7 +477,7 @@ void APP_Tasks(void) {
                 int right;
                 
                 
-                 error = error*.05 + (rxVal - 240)*.90; // 240 means the dot is in the middle of the screen
+                 error = (rxVal - 240); // 240 means the dot is in the middle of the screen
                  //error = 0;
                     if (error<0) { // slow down the left motor to steer to the left
                         error  = -1* error;
@@ -496,7 +496,7 @@ void APP_Tasks(void) {
                     }
                     OC1RS = right;
                     OC4RS = left;
-                    rxVal = u1;
+                    
                 
                 
 
